@@ -1,0 +1,17 @@
+{
+  "name": "crowdmon-youtube-metadata-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@distube/ytdl-core": "^4.13.5",
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2"
+  },
+  "type": "module"
+}
