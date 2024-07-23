@@ -19,8 +19,14 @@ app.post('/', async (req, res) => {
         return
     }
 
-    const info = await ytdl.getInfo(url)
-    res.send({data: info})
+    try {
+        const info = await ytdl.getInfo(url)
+        res.send({data: info})
+    } catch (e) {
+        console.log(e)
+        res.status(500).send({err: "Internal server error, failed to get metadata from youtube"})
+    }
+
     return 
  })
 
