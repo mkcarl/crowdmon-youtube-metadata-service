@@ -1,5 +1,6 @@
 import express from 'express'
-import ytdl from '@distube/ytdl-core'
+// import ytdl from '@distube/ytdl-core'
+import ytdl from 'ytdl-core'
 
 const app = express()
 const port = 3009
