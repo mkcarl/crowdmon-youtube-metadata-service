@@ -11,6 +11,8 @@ class Params(BaseModel):
 ydl_opts = {}
 app = FastAPI()
 
+
+
 @app.post("/")
 async def root(params: Params):
     now = datetime.datetime.now()
@@ -18,6 +20,7 @@ async def root(params: Params):
     
     info = {}
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+
         raw = ydl.extract_info(params.url, download=False)
         info = ydl.sanitize_info(raw)
     
