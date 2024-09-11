@@ -8,10 +8,10 @@ The reason this service is extracted from other services is due to the volatalit
 
 
 As of 23 Jul 2024, ytdl-core is replaced with @distube/ytdl-core as the former was not working due to changes in the Youtube system. 
-
+As of 11 Sep 2024, ytdl-core and @distube/ytdl-core is not working reliably, migrating to yt-dlp in python
 ## Starting server 
 ```
-npm run start
+uvicorn main:app --reload --port 3010
 ```
 
 ## Required params (json)
