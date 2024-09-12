@@ -8,7 +8,9 @@ import datetime
 class Params(BaseModel):
     url: str
 
-ydl_opts = {}
+ydl_opts = {
+    "source_address": "175.143.40.77",
+}
 app = FastAPI()
 
 
