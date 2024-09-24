@@ -1,6 +1,6 @@
 import express from 'express'
-import ytdl from '@distube/ytdl-core'
-// import ytdl from 'ytdl-core'
+// import ytdl from '@distube/ytdl-core'
+import ytdl from 'ytdl-core'
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 const app = express()
