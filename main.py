@@ -7,10 +7,8 @@ import datetime
 
 class Params(BaseModel):
     url: str
+    proxy_url: str
 
-ydl_opts = {
-    "source_address": "175.143.40.77",
-}
 app = FastAPI()
 
 
@@ -19,6 +17,10 @@ app = FastAPI()
 async def root(params: Params):
     now = datetime.datetime.now()
     print(f"[{now}] POST request with body {params.model_dump_json()}")
+    ydl_opts = {}
+    if params.proxy_url != '': 
+        print(f"routing through proxy [{params.proxy_url}]")
+        ydl_opts["proxy"] = params.proxy_url
     
     info = {}
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
