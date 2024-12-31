@@ -1,10 +1,13 @@
 import express from 'express'
-// import ytdl from '@distube/ytdl-core'
-import ytdl from 'ytdl-core'
 import { HttpsProxyAgent } from 'https-proxy-agent';
+import { Innertube } from 'youtubei.js'
 
 const app = express()
 const port = 3009
+
+const ErrorCode = {
+    
+}
 
 app.use(express.json())
 
@@ -30,7 +33,7 @@ app.post('/', async (req, res) => {
     }
 
     try {
-        const info = await ytdl.getInfo(url, ydl_opts)
+        const info = await getInfo(url)
         res.send({data: info})
     } catch (e) {
         console.log(e)
@@ -43,3 +46,13 @@ app.post('/', async (req, res) => {
 app.listen(port, () => {
     console.log(`Service started in port ${port}`)
 })
+
+async function getInfo(url) {
+    const youtube = await Innertube.create()
+    const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
+    const videoId = reg.exec(url)[1]
+
+    const info = await youtube.getInfo(videoId)
+
+    return info
+}
