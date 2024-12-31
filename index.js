@@ -39,7 +39,12 @@ async function getInfo(url) {
     const reg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
     const videoId = reg.exec(url)[1]
 
-    const info = await youtube.getInfo(videoId)
+    const basicInfo = await youtube.getBasicInfo(videoId)
+    const streamingData = await youtube.getStreamingData(videoId)
 
-    return info
+    
+    return {
+        basic_info: basicInfo,
+        streaming_data: streamingData
+    }
 }
