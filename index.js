@@ -1,19 +1,14 @@
 import express from 'express'
-import { HttpsProxyAgent } from 'https-proxy-agent';
 import { Innertube } from 'youtubei.js'
 
 const app = express()
 const port = 3009
 
-const ErrorCode = {
-    
-}
-
 app.use(express.json())
 
 app.post('/', async (req, res) => {
     console.log(`[${new Date()}] POST request with body ${JSON.stringify(req.body)}`)
-    const {url, proxy_url} = req.body
+    const {url} = req.body
     if (!url) {
         res.status(403).send({err : "Invalid params"})
         return
@@ -24,20 +19,12 @@ app.post('/', async (req, res) => {
         return
     }
 
-    const ydl_opts = {}
-
-    if (proxy_url) {
-        const agent = new HttpsProxyAgent(proxy_url)
-        ydl_opts["requestOptions"] = {agent}
-        console.log(`routing through proxy [${proxy_url}]`)
-    }
-
     try {
         const info = await getInfo(url)
-        res.send({data: info})
+        res.send({data: info, err: null})
     } catch (e) {
         console.log(e)
-        res.status(500).send({err: "Internal server error, failed to get metadata from youtube"})
+        res.status(500).send({data: null, err: "Internal server error, failed to get metadata from youtube"})
     }
 
     return 
